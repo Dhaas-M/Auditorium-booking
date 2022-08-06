@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo: Add custom markers in Mapbox GL JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      .marker {
+        background-image: url('mapbox-icon.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .mapboxgl-popup {
+        max-width: 200px;
+      }
+      .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+      <h1 class="lan"><%= lan %></h1>
+      <h1 class="lot"><%= lat %></h1>
+    <div id="map"></div>
+
+    <script>
+        const lan = document.querySelector('.lan').textContent
+  const lot = document.querySelector('.lot').textContent
+  
+
+  let l1 = parseInt(lan)
+  let l2 = parseInt(lot)
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGhhYXNhcmF0aHkiLCJhIjoiY2wwYjk3eHpnMDFvaTNib20zcjR5dzBvaSJ9.fzaeGSlXkKUmE1aWiVyRVA';
+
+const mapData = [
+    {
+        lat: l1,
+        lon:  l2,
+        description: lot
+    }
+]
+
+const geojson = {
+ // type: 'FeatureCollection'
+ features: [
+  {
+    type: 'Feature',
+    geometry: {
+    type: 'Point',
+    coordinates:  [l1, l2]
+    },
+    properties: {
+      title: '',
+      description: lot
+    }
+  }
+]
+ 
+  
+};
+
+
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [80.2707, 13.0827],
+  zoom: 10
+});
+
+// add markers to map
+for (const feature of geojson.features) {
+  // create a HTML element for each feature
+  const el = document.createElement('div');
+  el.className = 'marker';
+
+  // make a marker for each feature and add it to the map
+  new mapboxgl.Marker(el)
+    .setLngLat(feature.geometry.coordinates)
+    .setPopup(
+      new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(
+          `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+        )
+    )
+    .addTo(map);
+}
+    </script>
+  </body>
+</html>

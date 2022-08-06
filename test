@@ -1,0 +1,49 @@
+const express = require('express')
+const path = require('path')
+const mongoose = require('mongoose')
+const crypto = require('crypto')
+const multer = require('multer')
+const { GridFsStorage } = require('multer-gridfs-storage')
+const Grid = require('gridfs-stream')
+
+const app = express()
+app.set('view engine', 'ejs')
+
+const conn = mongoose.createConnection('mongodb://localhost/imgtest')
+
+let gfs;
+
+conn.once('open', () => {
+    gfs = Grid(conn.db, mongoose.mongo)
+    gfs.collection('uploads')
+})
+
+const storage = new GridFsStorage({
+    url: 'mongodb://localhost/imgtest',
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads'
+          };
+          resolve(fileInfo);
+        });
+      });
+    }
+  });
+  const upload = multer({ storage });
+
+app.get('/', (req,res) => {
+    res.render('index')
+})
+
+app.post('/', upload.single('file'), (req,res) => {
+    res.send('ok')
+    console.log(req.file)
+})
+app.listen(3000)

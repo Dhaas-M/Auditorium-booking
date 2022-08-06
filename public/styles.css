@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    background-color: aliceblue;
+}
+/* login */
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    height: 100vh;
+}
+
+.form input{
+    width: 220px;
+    height: 30px;
+    outline: none;
+    border: none;
+}
+
+.form input:focus{
+    border: 1px solid black;
+}
+
+.form a{
+    text-decoration: none;
+}
+
+.form a:hover{
+    color: rgb(53, 53, 194);
+}
+
+.form button{
+    height: 30px;
+    width: 190px;
+    border: none;
+    background: rgb(66, 198, 121);
+}
+
+/* admin-home */
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+nav .greetings{
+    padding-left: 1em;
+}
+
+nav .profile{
+    text-decoration: none;
+    padding-right: 1em;
+}
+
+nav .profile:hover{
+    color:rgb(193, 61, 61);
+}
+
+main{
+    margin-top: 7em;
+    margin-left: 2em;
+    font-size: larger;
+}
+
+main .add{
+    margin-left: 3em;
+    background: rgb(28, 90, 165);
+    text-decoration: none;
+    height: 30px;
+    width: 230px;
+    text-align: center;
+    color: black;
+    display: block;
+    margin-top: 2em;
+}

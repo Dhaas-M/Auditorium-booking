@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="/stadium/search" method="post">
+            <input type="text" name="search" id="" placeholder="Search">
+            <button type="submit">Serach</button>
+        </form>
+    </div>
+    <div>
+        <% stadiums.forEach(stadium => {  %>
+            <h1><%= stadium.name %> </h1>
+            <h3><%= stadium.contactNumber %></h3>
+            <h3><%= stadium.capacity %></h3>
+            <h3><%= stadium.address %></h3>
+            <a href="mailto:<%= stadium.email %>">Conatct via email</a>
+            <a href=<%= `/stadium/book/${stadium.name}` %> >Book Now</a>
+            <a href="/stadium/view/<%= stadium.longitude %>/<%= stadium.latitude %>">show in map</a>
+            <a href=<%= `/stadium/bookedSlots/${stadium.name}` %> >Booked</a>
+        <% }); %>
+    </div> 
+
+    <ul class="pagination">
+        <% for (var a = 0; a < pages; a++) { %>
+        <li>
+            <a href=<%= `/stadium/showAll/${a}` %>>
+                <%= a+1; %>
+            </a>
+        </li>
+        <% } %>
+    </ul>
+</body>
+</html>

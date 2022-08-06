@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/stadium/add" method="post">
+        <input type="text" name="name" id="" placeholder="Stadium Name">
+        <input type="text" name="ownerName" id="" placeholder="Name">
+        <input type="text" name="telephone" id="" placeholder="Contact Number">
+        <input type="email" name="email" id="" value=<%=user.email%> >
+        <input type="number" name="capacity" id="" placeholder="capacity">
+        <input type="text" name="address" id="" placeholder="address">
+        <input type="file" name="cover" id="" multiple>
+        <input type="text" name="latitude" id="" placeholder="latitude">
+        <input type="text" name="longitude" id="" placeholder="longitude">
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
